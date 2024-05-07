@@ -28,6 +28,7 @@ import { ImageSource } from "./@types";
 
 type Props = {
   images: ImageSource[];
+  onScrollHandler?: VirtualizedList<ImageSource>["props"]["onScroll"];
   keyExtractor?: (imageSrc: ImageSource, index: number) => string;
   imageIndex: number;
   visible: boolean;
@@ -66,6 +67,7 @@ function ImageViewing({
   delayLongPress = DEFAULT_DELAY_LONG_PRESS,
   HeaderComponent,
   FooterComponent,
+  onScrollHandler,
 }: Props) {
   const imageList = useRef<VirtualizedList<ImageSource>>(null);
   const [opacity, onRequestCloseEnhanced] = useRequestClose(onRequestClose);
@@ -116,6 +118,7 @@ function ImageViewing({
         <VirtualizedList
           ref={imageList}
           data={images}
+          onScroll={onScrollHandler}
           horizontal
           pagingEnabled
           windowSize={2}
